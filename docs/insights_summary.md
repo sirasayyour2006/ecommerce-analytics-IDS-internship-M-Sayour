@@ -6,14 +6,16 @@ E-commerce Analytics Dashboard
 
 ## Business Problem
 
-The company operates an online marketplace with transactional data stored in raw CSV files.  
-Management needs a reliable analytics solution to monitor sales performance, product performance, regional contribution, and delivery efficiency.
+The company operates an online marketplace and needs a reliable analytics solution to monitor sales performance, product performance, regional contribution, and delivery efficiency.
 
-Before this project, the business lacked:
-- Standardized KPIs
-- Clean reporting tables
-- A centralized analytics model
-- Executive dashboards for decision-making
+The business needs to answer key questions such as:
+
+- What is the total revenue?
+- How many orders were completed?
+- What is the average order value?
+- Which product categories generate the most revenue?
+- Which regions contribute the most to sales?
+- What percentage of orders are delayed or delivered on time?
 
 ---
 
@@ -24,11 +26,11 @@ The project followed an end-to-end analytics workflow:
 1. Downloaded the Olist E-commerce dataset using the Kaggle API.
 2. Cleaned and transformed the required datasets using Python and Pandas.
 3. Loaded processed datasets into SQLite staging tables.
-4. Built a star schema using SQL.
-5. Created Power BI dashboards using the analytics-ready model.
-6. Developed business insights and recommendations based on dashboard results.
+4. Built a SQL star schema.
+5. Connected Power BI to the SQL model.
+6. Built executive dashboards and extracted business insights.
 
-The final Power BI model used the following tables:
+The final dashboard uses the following analytics tables:
 
 - `fact_orders`
 - `dim_customers`
@@ -37,28 +39,14 @@ The final Power BI model used the following tables:
 
 ---
 
-## Dashboard Pages
+# Dashboard Overview
 
-The Power BI report contains four executive dashboard pages:
+The Power BI report contains four pages:
 
-1. **Sales Overview**
-   - Total Revenue
-   - Orders
-   - Average Order Value
-   - Monthly Revenue Trend
-
-2. **Product Performance**
-   - Revenue by Product Category
-   - Top Products by Revenue
-
-3. **Regional Performance**
-   - Revenue by State
-   - Top Cities by Revenue
-
-4. **Delivery Performance**
-   - Delayed vs On-Time Orders
-   - Delayed Percentage
-   - On-Time Percentage
+1. Sales Overview
+2. Product Performance
+3. Regional Performance
+4. Delivery Performance
 
 ---
 
@@ -66,53 +54,99 @@ The Power BI report contains four executive dashboard pages:
 
 ## 1. Sales Overview Insights
 
-The Sales Overview dashboard shows the overall sales performance of the business.
+The Sales Overview dashboard shows the main sales performance indicators.
 
-Key observations:
+### Main KPIs
 
-- Total Revenue provides a clear view of the revenue generated from delivered orders.
-- Orders show the number of unique completed orders.
-- Average Order Value helps understand how much revenue is generated per order on average.
-- The monthly revenue trend shows changes in business performance over time.
+- Total Revenue: 15.42M
+- Orders: 96K
+- Average Order Value: 159.83
+- Average Delivery Days: 12.01 days
 
-Business interpretation:
+### Interpretation
 
-Revenue trends help management identify strong and weak sales periods.  
-If revenue decreases in certain months, the business should investigate possible causes such as lower demand, product availability, seasonal effects, or delivery issues.
+The business generated approximately 15.42M in total revenue from about 96K completed orders.
+
+The Average Order Value is 159.83, which means that each completed order generates around 160 in revenue on average.
+
+The average delivery time is 12.01 days, which provides an important operational benchmark for evaluating delivery performance.
+
+The monthly revenue trend shows that revenue performance changes over time. This trend helps management monitor business growth, detect weaker months, and investigate possible seasonality or operational issues.
+
+### Business Meaning
+
+Sales KPIs give management a clear view of business performance. Monitoring total revenue, order volume, and AOV helps identify whether growth is driven by more orders, higher order value, or both.
 
 ---
 
 ## 2. Product Performance Insights
 
-The Product Performance dashboard identifies which product categories and products generate the highest revenue.
+The Product Performance dashboard shows revenue distribution by product category and top products.
 
-Key observations:
+### Top-Performing Categories
 
-- Some product categories contribute significantly more revenue than others.
-- The Top 10 products represent the strongest revenue-generating products.
-- Product categories with low revenue may need further investigation.
+The highest revenue-generating categories include:
 
-Business interpretation:
+1. beleza_saude
+2. relogios_presentes
+3. cama_mesa_banho
+4. esporte_lazer
+5. informatica_acessorios
 
-High-performing categories should receive more marketing focus, better inventory planning, and stronger supplier relationships.  
-Low-performing categories may need pricing review, promotional campaigns, or product portfolio evaluation.
+### Interpretation
+
+The category `beleza_saude` appears to be the strongest product category by revenue, followed by `relogios_presentes` and `cama_mesa_banho`.
+
+These categories are key revenue drivers for the business and should receive more focus in marketing, inventory planning, and supplier management.
+
+### Top Products
+
+The Top Products visual shows that a small number of products generate significantly higher revenue than others. The top products range approximately between 40K and 67K in revenue.
+
+### Business Meaning
+
+High-performing categories and products should be prioritized because they contribute strongly to total revenue. The company can use these insights to improve stock planning, marketing campaigns, and product recommendations.
 
 ---
 
 ## 3. Regional Performance Insights
 
-The Regional Performance dashboard shows how revenue is distributed by customer location.
+The Regional Performance dashboard shows revenue distribution by customer location.
 
-Key observations:
+### Top-Performing States
 
-- Some states generate much higher revenue than others.
-- Top cities contribute strongly to overall sales.
-- Underperforming regions may represent growth opportunities.
+The highest revenue-generating states are:
 
-Business interpretation:
+1. SP
+2. RJ
+3. MG
+4. RS
+5. PR
 
-Regional revenue differences can help the company improve location-based marketing strategies.  
-High-performing regions can be prioritized for customer retention campaigns, while underperforming regions can be targeted with promotions, logistics improvements, or market research.
+### Interpretation
+
+SP is the strongest state by revenue and contributes much more than other states. RJ and MG also show strong performance, but there is a large gap between SP and the rest of the states.
+
+This suggests that revenue is geographically concentrated in a few major regions.
+
+### Underperforming Regions
+
+The lowest-performing states include:
+
+- RR
+- AP
+- AC
+- AM
+- RO
+- TO
+
+These regions generate much lower revenue compared to the top states.
+
+### Business Meaning
+
+The company should continue investing in high-performing regions such as SP, RJ, and MG while also investigating why some regions are underperforming.
+
+Underperforming regions may have lower customer demand, weaker marketing reach, delivery limitations, or lower product availability.
 
 ---
 
@@ -120,76 +154,94 @@ High-performing regions can be prioritized for customer retention campaigns, whi
 
 The Delivery Performance dashboard compares delayed orders with on-time orders.
 
-Key observations:
+### Main Delivery KPIs
 
-- Orders are classified as either delayed or on time.
-- Delayed Percentage measures the share of orders delivered after the estimated delivery date.
-- On-Time Percentage measures the share of orders delivered on or before the estimated date.
+- On-time orders: 89K
+- On-time percentage: 91.89%
+- Delayed orders: 8K
+- Delayed percentage: 8.11%
+- Average delivery days: 12.01 days
 
-Business interpretation:
+### Interpretation
 
-Delivery performance directly affects customer satisfaction.  
-A high delayed percentage may indicate logistics inefficiencies, carrier issues, or unrealistic estimated delivery dates.
+Most orders are delivered on time. Around 91.89% of orders are on time, while 8.11% are delayed.
+
+This indicates that the delivery process is generally performing well, but delayed orders still represent a meaningful operational issue.
+
+The delivery days trend shows changes in average delivery time over time. A decreasing delivery duration trend may indicate operational improvement, better logistics, or changes in delivery coverage.
+
+### Business Meaning
+
+Delivery performance directly affects customer satisfaction. Even though the on-time percentage is high, the company should continue monitoring delayed orders and work to reduce the delayed percentage further.
 
 ---
 
 # Strategic Recommendations
 
-## 1. Improve Sales Monitoring
+## 1. Monitor Revenue and Orders Monthly
 
-The company should monitor revenue, orders, and AOV regularly to detect performance changes early.
+The company should track total revenue, order count, and AOV on a monthly basis.
 
 Recommended actions:
-- Track monthly revenue trends.
-- Compare performance across months.
-- Investigate sudden drops in revenue or order count.
+
+- Monitor monthly revenue trends.
+- Investigate months with revenue drops.
+- Compare order growth with revenue growth.
+- Track AOV to understand customer spending behavior.
 
 ---
 
-## 2. Focus on High-Performing Categories
+## 2. Focus on High-Performing Product Categories
 
-The company should prioritize product categories that generate the highest revenue.
+The company should prioritize categories that generate the highest revenue.
 
 Recommended actions:
+
 - Increase marketing campaigns for top categories.
-- Ensure stock availability for high-demand products.
-- Build stronger supplier relationships for best-selling categories.
+- Ensure strong inventory availability for best-selling categories.
+- Strengthen supplier relationships for high-performing products.
+- Use top categories in promotional campaigns and homepage recommendations.
 
 ---
 
-## 3. Review Low-Performing Products and Categories
+## 3. Review Low-Performing Product Categories
 
-Underperforming categories should be reviewed to understand why they generate lower revenue.
+Low-performing categories should be analyzed to understand why they generate less revenue.
 
 Recommended actions:
-- Analyze pricing strategy.
-- Review product visibility.
-- Create promotional campaigns.
-- Consider removing or replacing weak products.
+
+- Review pricing strategy.
+- Improve product visibility.
+- Test promotional campaigns.
+- Consider replacing or reducing focus on weak categories.
 
 ---
 
 ## 4. Strengthen Regional Strategy
 
-The company should use regional insights to improve market targeting.
+Revenue is concentrated in major states, especially SP, RJ, and MG.
 
 Recommended actions:
-- Invest more in high-performing states and cities.
-- Create localized campaigns for underperforming regions.
-- Study customer behavior by region.
+
+- Maintain strong customer retention campaigns in top-performing states.
+- Launch targeted marketing campaigns in underperforming regions.
+- Study regional customer behavior.
 - Improve delivery coverage in weaker regions.
+- Evaluate whether delivery delays or logistics costs affect regional performance.
 
 ---
 
 ## 5. Improve Delivery Performance
 
-Delivery performance should be continuously monitored because it affects customer satisfaction.
+Although most orders are delivered on time, delayed orders still represent 8.11% of total orders.
 
 Recommended actions:
-- Identify regions with high delay rates.
-- Work with logistics partners to reduce delays.
+
+- Track delayed orders by region.
+- Identify carriers or areas with frequent delays.
 - Review estimated delivery dates.
-- Monitor delayed orders as a regular operational KPI.
+- Improve logistics partnerships.
+- Monitor delivery performance as a regular operational KPI.
 
 ---
 
@@ -197,14 +249,6 @@ Recommended actions:
 
 The Power BI dashboard provides an executive-level view of e-commerce performance.
 
-It helps answer important business questions such as:
+The business generated 15.42M in revenue from 96K orders, with an Average Order Value of 159.83. Product revenue is driven mainly by categories such as beleza_saude, relogios_presentes, and cama_mesa_banho. Regionally, SP is the strongest revenue contributor, followed by RJ and MG. Delivery performance is generally strong, with 91.89% of orders delivered on time and 8.11% delayed.
 
-- How much revenue is the business generating?
-- How many orders were completed?
-- What is the average order value?
-- Which product categories perform best?
-- Which products generate the highest revenue?
-- Which regions contribute most to sales?
-- What percentage of orders are delayed or delivered on time?
-
-The project successfully transformed raw e-commerce data into a clean, analytics-ready SQL model and an executive Power BI dashboard that supports business decision-making.
+Overall, the dashboard helps management monitor sales, product performance, regional contribution, and delivery efficiency. The insights can support better decisions in marketing, inventory planning, regional strategy, and logistics improvement.
